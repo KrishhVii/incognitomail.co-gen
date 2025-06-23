@@ -14,19 +14,23 @@ function d(payload) {
 }
 
 
-const payload = {
-    ts: Date.now(),
-    domain: "mailpro.live",
-    token: ""
-};
+async function createInbox(domain = "mailpro.live") {
+    const payload = {
+        ts: Date.now(),
+        domain,
+        token: ""
+    };
 
+    payload.key = d(JSON.stringify(payload));
 
-const key = d(JSON.stringify(payload));
-payload.key = key;
-axios.post("https://api.incognitomail.co/inbox/v2/create", payload)
-    .then(res => {
-        console.log("Response:", res.data);
-    })
-    .catch(err => {
-        console.error("Error:", err.response?.data || err.message);
-    });
+    try {
+        const response = await axios.post("https://api.incognitomail.co/inbox/v2/create", payload);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
+    }
+}
+
+createInbox()
+    .then(data => console.log("Inbox Created:", data))
+    .catch(err => console.error("Failed to create inbox:", err));
