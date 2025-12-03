@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const BASE_URL = "https://api.incognitomail.co";
 
 function d(payload) {
-    const key = "4O)QqiTV+(U+?Vi]qe|6..Xe"
+    const key = "6Cf1PDvSe{t2d6H2N;SCf34tRQOfoinO"
         .split("")
         .map(c => String.fromCharCode(c.charCodeAt(0) - 2))
         .join("");
